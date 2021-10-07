@@ -45,12 +45,6 @@ export void mandelbrot_ispc(uniform float x_min, uniform float x_max,
 
             int index = j * width + i;
             output[index] = mandel(x, y, maxIterations);
-
-           // if (output[index] != maxIterations) {
-           //     output[index] = 0;
-           // } else {
-           //     output[index] = 255;
-           // }
         }
     }
 
