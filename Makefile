@@ -11,7 +11,7 @@ all: src/main
 src/main: src/main.o src/tasksys.o src/mandelbrot_ispc.o src/mandelbrot_task_ispc.o
 	$(CXX) $(LDLIBS) $^ -o $@
 
-src/main.o: src/main.cpp
+src/main.o: src/main.cpp src/mandelbrot_ispc.o src/mandelbrot_task_ispc.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 src/tasksys.o: src/tasksys.cpp

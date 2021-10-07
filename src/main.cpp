@@ -12,43 +12,13 @@
 #include "mandelbrot_ispc.h"
 #include "mandelbrot_task_ispc.h"
 
+#include "benchmark.h"
+#include "image.h"
+
 constexpr int MAX_ITERATIONS = 100;
 
-using std::uint8_t;
-
-template <typename T, int Width, int Height>
-struct Image : public std::array<T, Width * Height> {
-	void set(int x, int y, uint8_t c) noexcept {
-		(*this)[y * Width + x] = c;
-	}
-
-	T const * data() const noexcept {
-		return &(*this)[0];
-	}
-
-	static constexpr int s_width = Width;
-	static constexpr int s_height = Height;
-};
-
-using image = Image<uint8_t, 1600, 1200>;
-
-inline float lerp(float a, float b, float t) {
-	return a + t * (b - a);
-}
-
-struct benchmark {
-	std::string m_msg;
-	std::chrono::high_resolution_clock::time_point start;
-
-	benchmark(std::string const& msg) : m_msg{msg}, start{std::chrono::high_resolution_clock::now()} {}
-	~benchmark() {
-		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
-		std::cout << m_msg << ": " << duration.count() << '\n';
-	}
-};
-
 void mandelbrot_cpp(image& img) {
-	// lerped to (-2, 0.47) x (-1.12, 1.12)
+	// (-2, 0.47) x (-1.12, 1.12)
 	// (https://en.wikipedia.org/wiki/Mandelbrot_set)
 	float const x_min = -2.0;
 	float const x_max = 0.47;
