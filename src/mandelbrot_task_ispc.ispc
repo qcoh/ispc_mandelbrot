@@ -11,10 +11,8 @@ static int mandel(float c_re, float c_im, int count) {
         float new_re = z_re*z_re - z_im*z_im + c_re;
         float new_im = 2.f * z_re * z_im + c_im;
 
-        unmasked {        
-            z_re = new_re;
-            z_im = new_im;
-        }
+        z_re = new_re;
+        z_im = new_im;
     }
 
     return i;
